@@ -4,6 +4,8 @@ set -e
 
 echo "Installing personal development environment..."
 
+sudo apt update && sudo apt upgrade -y
+
 # ─────────────────────────────────────────────
 # Rust
 # ─────────────────────────────────────────────
@@ -89,3 +91,20 @@ rustc --version 2>/dev/null || true
 
 echo "Starship:"
 starship --version 2>/dev/null || true
+
+
+sudo apt-get install -y fzf
+
+# Install ble.sh
+if [ ! -d "$HOME/.local/share/blesh" ]; then
+    mkdir -p "$HOME/.local/share"
+    git clone --recursive \
+        https://github.com/akinomyoga/ble.sh.git \
+        "$HOME/.local/share/blesh"
+fi
+
+# Install Atuin
+if ! command -v atuin >/dev/null 2>&1; then
+    curl --proto '=https' --tlsv1.2 -LsSf \
+        https://setup.atuin.sh | sh
+fi
