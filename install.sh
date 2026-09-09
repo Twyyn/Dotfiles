@@ -98,6 +98,7 @@ sudo apt-get install -y fzf
 # Install ble.sh
 if [ ! -d "$HOME/.local/share/blesh" ]; then
     mkdir -p "$HOME/.local/share"
+
     git clone --recursive \
         https://github.com/akinomyoga/ble.sh.git \
         "$HOME/.local/share/blesh"
