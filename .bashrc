@@ -1,12 +1,26 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+
+# ble.sh
+if [[ -f "$HOME/.local/share/blesh/ble.sh" ]]; then
+    source "$HOME/.local/share/blesh/ble.sh"
+fi
+
 # Rust
-source "$HOME/.cargo/env" 2>/dev/null || true
+if [[ -f "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+fi
+
+# Atuin
+if [[ -x "$HOME/.atuin/bin/atuin" ]]; then
+    eval "$("$HOME/.atuin/bin/atuin" init bash)"
+fi
 
 # Starship
-eval "$(starship init bash)"
-
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi
 
 # If not running interactively, don't do anything
 case $- in
@@ -165,5 +179,3 @@ if [[ "$TERM" == "xterm" ]]; then
     # Append to PROMPT_COMMAND to call precmd before displaying the prompt
     PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }precmd"
 fi
-. "$HOME/.cargo/env"
-eval "$(starship init bash)"
